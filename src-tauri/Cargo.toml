@@ -1,6 +1,6 @@
 [package]
 name = "prosperapp"
-version = "0.0.1"
+version = "0.0.2"
 description = "Modern Personal Finance App"
 authors = ["guilherme"]
 edition = "2021"
