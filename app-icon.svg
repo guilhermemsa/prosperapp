@@ -1,0 +1,38 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#f3f4f6" stop-opacity="0.85" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="24" stdDeviation="32" flood-opacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Background base with rounded corners -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bg)" />
+
+  <g transform="translate(162, 262)">
+    <!-- Credit Card Shape -->
+    <rect width="700" height="460" rx="56" fill="url(#card)" filter="url(#shadow)" />
+    
+    <!-- Chip -->
+    <rect x="80" y="80" width="100" height="80" rx="16" fill="#cbd5e1" />
+    <path d="M 100 120 L 160 120 M 130 90 L 130 150" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
+    
+    <!-- MasterCard/Visa like overlapping circles -->
+    <circle cx="560" cy="120" r="48" fill="#f59e0b" />
+    <circle cx="490" cy="120" r="48" fill="#ef4444" fill-opacity="0.8" />
+    
+    <!-- Account number placeholder lines -->
+    <path d="M 80 260 L 220 260 M 260 260 L 400 260 M 440 260 L 580 260 M 80 320 L 320 320" stroke="#94a3b8" stroke-width="28" stroke-linecap="round" />
+    
+    <!-- Decorative growth chart line overlaid on the card -->
+    <path d="M 80 400 L 240 280 L 360 340 L 620 160" stroke="#10b981" stroke-width="36" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="620" cy="160" r="28" fill="#10b981" />
+  </g>
+</svg>
