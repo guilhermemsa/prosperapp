@@ -66,5 +66,7 @@ pub async fn export_csv(state: State<'_, AuthState>, file_path: String) -> Resul
         writeln!(file, "{}", line).map_err(|e| e.to_string())?;
     }
 
+    file.sync_all().map_err(|e| e.to_string())?;
+
     Ok(())
 }

@@ -34,8 +34,12 @@ dist-ssr
 coverage/
 
 # Documentation
-*.md
-!README.md
+# (markdown files are now tracked by default)
+
+# Backups
+*.csv
+.env
+.env.local
 
 # Tauri/Rust build artifacts
 src-tauri/target/

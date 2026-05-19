@@ -17,6 +17,8 @@ import {
   Calendar as CalendarIcon,
   AlertCircle,
   Bell,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
 import { accountService } from '@/services/account'
 import { transactionService } from '@/services/transaction'
@@ -39,7 +41,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
 import { Progress } from '@/components/ui/progress'
 
 const StatCard = ({
@@ -91,6 +92,12 @@ const StatCard = ({
 
 export const DashboardPage = () => {
   const [filterDate, setFilterDate] = useState<Date>(new Date())
+  const [pickerYear, setPickerYear] = useState<number>(new Date().getFullYear())
+  const [isMonthPickerOpen, setIsMonthPickerOpen] = useState(false)
+
+  const months = [
+    'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+  ]
 
   const { data: accounts } = useQuery({
     queryKey: ['accounts'],
@@ -270,7 +277,7 @@ export const DashboardPage = () => {
           </p>
         </div>
         <div>
-          <Popover>
+          <Popover open={isMonthPickerOpen} onOpenChange={setIsMonthPickerOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant={'outline'}
@@ -287,13 +294,31 @@ export const DashboardPage = () => {
                 )}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="end">
-              <Calendar
-                mode="single"
-                selected={filterDate}
-                onSelect={(d) => d && setFilterDate(d)}
-                defaultMonth={filterDate}
-              />
+            <PopoverContent className="w-auto p-3" align="end">
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-border">
+                <Button variant="ghost" size="icon" onClick={() => setPickerYear(y => y - 1)}>
+                  <ChevronLeft size={16} />
+                </Button>
+                <span className="font-semibold text-sm">{pickerYear}</span>
+                <Button variant="ghost" size="icon" onClick={() => setPickerYear(y => y + 1)}>
+                  <ChevronRight size={16} />
+                </Button>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {months.map((m, i) => (
+                  <Button 
+                    key={m} 
+                    variant={filterDate.getMonth() === i && filterDate.getFullYear() === pickerYear ? "default" : "outline"}
+                    className="text-xs h-9"
+                    onClick={() => {
+                      setFilterDate(new Date(pickerYear, i, 1))
+                      setIsMonthPickerOpen(false)
+                    }}
+                  >
+                    {m}
+                  </Button>
+                ))}
+              </div>
             </PopoverContent>
           </Popover>
         </div>

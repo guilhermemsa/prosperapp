@@ -16,12 +16,6 @@ pub async fn get_setting_internal(
 ) -> Result<Option<String>, String> {
     state.require_unlocked()?;
 
-    if key == "gemini_api_key" {
-        return EncryptionService::get_from_keyring("com.prosperapp.app", &key)
-            .map(Some)
-            .or_else(|_| Ok(None));
-    }
-
     let pool = state.get_pool()?;
 
     let row: Option<(String,)> = sqlx::query_as("SELECT value FROM settings WHERE key = ?")
@@ -48,12 +42,6 @@ pub async fn set_setting_internal(
     value: String,
 ) -> Result<(), String> {
     state.require_unlocked()?;
-
-    if key == "gemini_api_key" {
-        EncryptionService::save_to_keyring("com.prosperapp.app", &key, &value)
-            .map_err(|e| format!("Falha ao salvar no Keychain do sistema: {}", e))?;
-        return Ok(());
-    }
 
     let pool = state.get_pool()?;
 

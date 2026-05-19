@@ -77,6 +77,7 @@ export const SettingsPage = () => {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false)
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false)
+  const [isExportSuccessDialogOpen, setIsExportSuccessDialogOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false)
   const [isResetting, setIsResetting] = useState(false)
@@ -129,8 +130,7 @@ export const SettingsPage = () => {
       })
       if (filePath) {
         await invoke('export_csv', { filePath })
-        setErrorMessage('Exportado com sucesso!')
-        setIsSuccessDialogOpen(true)
+        setIsExportSuccessDialogOpen(true)
       }
     } catch (error) {
       setErrorMessage(`${error}`)
@@ -486,6 +486,26 @@ export const SettingsPage = () => {
           </DialogHeader>
           <DialogFooter>
             <Button onClick={() => setIsSuccessDialogOpen(false)}>
+              Entendido
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog de Sucesso de Exportação */}
+      <Dialog open={isExportSuccessDialogOpen} onOpenChange={setIsExportSuccessDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-green-600">
+              <CheckCircle2 size={20} />
+              Exportação Concluída
+            </DialogTitle>
+            <DialogDescription>
+              Suas transações foram exportadas com sucesso para o arquivo CSV.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={() => setIsExportSuccessDialogOpen(false)}>
               Entendido
             </Button>
           </DialogFooter>
